@@ -1,6 +1,6 @@
 {application, snag,
- [{description, "A Gleam project"},
-  {vsn, "1.0.0"},
+ [{description, "A boilerplate-free ad-hoc error type"},
+  {vsn, "0.1.0"},
   {registered, []},
   {applications,
    [kernel,

@@ -1,21 +1,72 @@
-# snag
+# Snag
 
-A Gleam project
+A Snag is a boilerplate-free ad-hoc error type.
 
-## Quick start
+Use `Result(value, Snag)` (or the `snag.Result(value)` alias) in functions
+that may fail.
 
-```sh
-# Run the eunit tests
-rebar3 eunit
+A low level message like "Unexpected status 401" or "No such file or
+directory" can be confusing or difficult to debug, so use the `snag.context`
+function to add extra contextual information.
 
-# Run the Erlang REPL
-rebar3 shell
+```rust
+import gleam/io
+import my_app.{User}
+import snag.{Result}
+
+pub fn log_in(user_id: Int) -> Result(User) {
+  try api_key = 
+    my_app.read_file("api_key.txt")
+    |> snag.context("Could not load API key")
+
+  try session_token = 
+    user_id
+    |> my_app.create_session(api_key)
+    |> snag.context("Session creation failed")
+
+  Ok(session_token)
+}
+
+pub fn main() {
+  case log_in(42) {
+    Ok(session) -> io.println("Logged in!")
+    Error(snag) -> {
+      io.print(snag.pretty_print(snag))
+      my_app.exit(1)
+    }
+  }
+}
 ```
+
+In this code when an error occurs within the `create_session` function an
+error message like this is printed using the added contextual information:
+
+```text
+error: Session creation failed
+
+cause:
+  0: Unable to exchange token with authentication service
+  1: Service authentication failed
+  2: Unexpected HTTP status 401
+```
+
+## When should I use Snag?
+
+Snag is useful in code where it must either pass or fail, and when it fails we
+want good debugging information to print to the user. i.e. Command line
+tools, data processing pipelines, etc.
+
+If it not suited to code where the application needs to make a decision about
+what to do in the event of an error, such as whether to give up or to try
+again. i.e. Libraries, web application backends, API clients, etc.
+
+In these situations it is recommended to create a custom type for your errors
+as it can be pattern matched on and have any additional detail added as
+fields.
 
 ## Installation
 
-If [available in Hex](https://rebar3.org/docs/configuration/dependencies/#declaring-dependencies)
-this package can be installed by adding `snag` to your `rebar.config` dependencies:
+Add `snag` to the deps list in `rebar3.config`.
 
 ```erlang
 {deps, [

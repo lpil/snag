@@ -1,6 +1,4 @@
 name = "snag"
+description = "A boilerplate-free ad-hoc error type"
+repository = { type = "github", user = "gleam-experiments", repo = "snag" }
 
-# [docs]
-# links = [
-#   { title = 'GitHub', href = 'https://github.com/username/project_name' }
-# ]
