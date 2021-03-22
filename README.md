@@ -58,13 +58,11 @@ tools, data processing pipelines, etc. Here Snag provides a convenient way to
 create errors with a reasonable amount of debugging information, without the
 boilerplate of a custom error type.
 
-If it not suited to code where the application needs to make a decision about
+It is not suited to code where the application needs to make a decision about
 what to do in the event of an error, such as whether to give up or to try
-again. i.e. Libraries, web application backends, API clients, etc.
-
-In these situations it is recommended to create a custom type for your errors
-as it can be pattern matched on and have any additional detail added as
-fields.
+again. i.e. Libraries, web application backends, API clients, etc. In these
+situations it is recommended to create a custom type for your errors as it
+can be pattern matched on and have any additional detail added as fields.
 
 ## Installation
 
