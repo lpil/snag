@@ -73,3 +73,11 @@ Add `snag` to the deps list in `rebar3.config`.
     snag
 ]}.
 ```
+
+## Prior art
+
+This library is inspired by the following projects:
+
+- Rust's [`anyhow`](https://github.com/dtolnay/anyhow) and
+  [`std::error::Error`](https://doc.rust-lang.org/std/error/trait.Error.html)
+- Go's [`error`](https://golang.org/pkg/errors/).
