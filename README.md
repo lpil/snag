@@ -54,7 +54,9 @@ cause:
 
 Snag is useful in code where it must either pass or fail, and when it fails we
 want good debugging information to print to the user. i.e. Command line
-tools, data processing pipelines, etc.
+tools, data processing pipelines, etc. Here Snag provides a convenient way to
+create errors with a reasonable amount of debugging information, without the
+boilerplate of a custom error type.
 
 If it not suited to code where the application needs to make a decision about
 what to do in the event of an error, such as whether to give up or to try
