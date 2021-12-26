@@ -1,4 +1,16 @@
 name = "snag"
+version = "0.2.0"
+licences = ["Apache-2.0"]
 description = "A boilerplate-free ad-hoc error type"
-repository = { type = "github", user = "gleam-experiments", repo = "snag" }
 
+repository = { type = "github", user = "gleam-experiments", repo = "snag" }
+links = [
+  { title = "Website", href = "https://gleam.run" },
+  { title = "Sponsor", href = "https://github.com/sponsors/lpil" },
+]
+
+[dependencies]
+gleam_stdlib = "~> 0.18"
+
+[dev-dependencies]
+gleeunit = "~> 0.5"

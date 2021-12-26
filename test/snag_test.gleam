@@ -1,5 +1,10 @@
 import snag.{Snag}
-import gleam/should
+import gleeunit
+import gleeunit/should
+
+pub fn main() {
+  gleeunit.main()
+}
 
 pub fn context_test() {
   Ok(1)
