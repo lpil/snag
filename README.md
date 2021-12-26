@@ -66,12 +66,10 @@ can be pattern matched on and have any additional detail added as fields.
 
 ## Installation
 
-Add `snag` to the deps list in `rebar3.config`.
+Add `snag` to your Gleam project
 
 ```erlang
-{deps, [
-    snag
-]}.
+gleam add snag
 ```
 
 ## Prior art
