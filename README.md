@@ -9,7 +9,7 @@ A low level message like "Unexpected status 401" or "No such file or
 directory" can be confusing or difficult to debug, so use the `snag.context`
 function to add extra contextual information.
 
-```rust
+```gleam
 import gleam/io
 import my_app.{User}
 import snag.{Result}
@@ -68,7 +68,7 @@ can be pattern matched on and have any additional detail added as fields.
 
 Add `snag` to your Gleam project
 
-```erlang
+```
 gleam add snag
 ```
 
