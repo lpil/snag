@@ -1,3 +1,4 @@
+import gleam
 import gleam/string_builder
 import gleam/string
 import gleam/list
@@ -23,7 +24,7 @@ pub type Snag {
 
 /// A concise alias for a `Result` that uses a `Snag` as the error value.
 pub type Result(t) =
-  Result(t, Snag)
+  gleam.Result(t, Snag)
 
 /// Create a new `Snag` with the given issue text.
 ///
