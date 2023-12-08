@@ -11,18 +11,21 @@ function to add extra contextual information.
 
 ```gleam
 import gleam/io
+import gleam/result
 import my_app.{User}
 import snag.{Result}
 
 pub fn log_in(user_id: Int) -> Result(User) {
-  try api_key = 
+  use api_key <- result.try(
     my_app.read_file("api_key.txt")
     |> snag.context("Could not load API key")
+  )
 
-  try session_token = 
+  use session_token <- result.try(
     user_id
     |> my_app.create_session(api_key)
     |> snag.context("Session creation failed")
+  )
 
   Ok(session_token)
 }
