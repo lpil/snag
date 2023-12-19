@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.3.0 - 2023-12-19
+
+- Updated for Gleam stdlib v0.34.0.
+
 ## v0.2.1 - 2023-06-27
 
 - Updated for latest Gleam.
