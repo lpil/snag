@@ -117,7 +117,7 @@ pub fn pretty_print(snag: Snag) -> String {
 
 fn pretty_print_cause(cause) {
   cause
-  |> list.index_map(fn(index, line) {
+  |> list.index_map(fn(line, index) {
     string.concat(["  ", int.to_string(index), ": ", line, "\n"])
   })
   |> string_builder.from_strings
