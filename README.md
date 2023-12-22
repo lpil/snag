@@ -13,7 +13,7 @@ function to add extra contextual information.
 import gleam/io
 import gleam/result
 import my_app.{User}
-import snag.{Result}
+import snag.{type Result}
 
 pub fn log_in(user_id: Int) -> Result(User) {
   use api_key <- result.try(
