@@ -132,7 +132,7 @@ fn pretty_print_cause(cause) {
 /// > new("Not enough credit")
 /// > |> layer("Unable to make purchase")
 /// > |> layer("Character creation failed")
-/// > |> pretty_print
+/// > |> line_print
 /// "error: Character creation failed <- Unable to make purchase <- Not enough credit"
 /// ```
 pub fn line_print(snag: Snag) -> String {
