@@ -2,7 +2,6 @@ import gleam
 import gleam/int
 import gleam/list
 import gleam/string
-import gleam/string_tree
 
 /// A Snag is a boilerplate-free error type that can be used to track why an
 /// error happened, though does not store as much detail on specific errors as a
@@ -104,15 +103,12 @@ pub fn context(result: Result(success), issue: String) -> Result(success) {
 /// "
 /// ```
 pub fn pretty_print(snag: Snag) -> String {
-  let builder = string_tree.from_strings(["error: ", snag.issue, "\n"])
+  let output = "error: " <> snag.issue <> "\n"
 
-  string_tree.to_string(case snag.cause {
-    [] -> builder
-    cause ->
-      builder
-      |> string_tree.append("\ncause:\n")
-      |> string_tree.append_tree(pretty_print_cause(cause))
-  })
+  case snag.cause {
+    [] -> output
+    cause -> output <> "\ncause:\n" <> pretty_print_cause(cause)
+  }
 }
 
 fn pretty_print_cause(cause) {
@@ -120,7 +116,7 @@ fn pretty_print_cause(cause) {
   |> list.index_map(fn(line, index) {
     string.concat(["  ", int.to_string(index), ": ", line, "\n"])
   })
-  |> string_tree.from_strings
+  |> string.concat
 }
 
 /// Turn a snag into a single-line string, optimised for compactness. This may be
