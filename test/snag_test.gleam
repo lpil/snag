@@ -1,6 +1,6 @@
-import snag.{Snag}
 import gleeunit
 import gleeunit/should
+import snag.{Snag}
 
 pub fn main() {
   gleeunit.main()
