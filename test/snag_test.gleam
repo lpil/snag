@@ -40,3 +40,21 @@ pub fn line_print_test() {
     "error: Save failed <- Could not open file <- Directory not writable",
   )
 }
+
+pub fn map_error_error_test() {
+  let describe_error = fn(_) -> String { "Error #1" }
+
+  Error(1)
+  |> snag.map_error(describe_error)
+  |> snag.context("Could not open file")
+  |> should.equal(Error(Snag("Could not open file", ["Error #1"])))
+}
+
+pub fn map_error_ok_test() {
+  let describe_error = fn(_) -> String { "Error #1" }
+
+  Ok(0)
+  |> snag.map_error(describe_error)
+  |> snag.context("Could not open file")
+  |> should.equal(Ok(0))
+}

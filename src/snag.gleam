@@ -86,6 +86,29 @@ pub fn context(result: Result(success), issue: String) -> Result(success) {
   }
 }
 
+/// Maps the error type in a `Result` to a `Snag` given a describing function.
+/// The describing function should produce a human friendly string
+/// reprensentation of the error.
+/// 
+/// # Example
+///
+/// ```gleam
+/// > my_app.read_file("api_key.txt")
+/// > |> snag.map_error(my_app.describe_error)
+/// > |> snag.context("Could not load API key")
+/// > |> snag.line_print
+/// "error: Could not load API key <- File is locked"
+/// ```
+pub fn map_error(
+  result: gleam.Result(a, b),
+  with describer: fn(b) -> String,
+) -> Result(a) {
+  case result {
+    Ok(a) -> Ok(a)
+    Error(b) -> describer(b) |> error
+  }
+}
+
 /// Turn a snag into a multi-line string, optimised for readability.
 ///
 /// # Example
