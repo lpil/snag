@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.1.0 - 2024-12-19
+
+- Added the `map_error` function.
+
 ## v1.0.0 - 2024-11-19
 
 - Updated for Gleam stdlib v0.43.0.
