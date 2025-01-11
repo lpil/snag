@@ -29,12 +29,12 @@ pub type Result(t) =
 ///
 /// See also the `error` function for creating a `Snag` wrapped in a `Result`.
 ///
-/// # Example
+/// ### Example
 ///
 /// ```gleam
-/// > new("Not enough credit")
-/// > |> line_print
-/// "error: Not enough credit"
+/// new("Not enough credit")
+/// |> line_print
+/// // -> "error: Not enough credit"
 /// ```
 pub fn new(issue: String) -> Snag {
   Snag(issue: issue, cause: [])
@@ -42,11 +42,11 @@ pub fn new(issue: String) -> Snag {
 
 /// Create a new `Snag` wrapped in a `Result` with the given issue text.
 ///
-/// # Example
+/// ### Example
 ///
 /// ```gleam
-/// > error("Not enough credit")
-/// Error(new("Not enough credit"))
+/// error("Not enough credit")
+/// // -> Error(new("Not enough credit"))
 /// ```
 pub fn error(issue: String) -> Result(success) {
   Error(new(issue))
@@ -60,10 +60,10 @@ pub fn error(issue: String) -> Result(success) {
 /// # Example
 ///
 /// ```gleam
-/// > new("Not enough credit")
-/// > |> layer("Unable to make purchase")
-/// > |> line_print
-/// "error: Unable to make purchase <- Not enough credit"
+/// new("Not enough credit")
+/// |> layer("Unable to make purchase")
+/// |> line_print
+/// // -> "error: Unable to make purchase <- Not enough credit"
 /// ```
 pub fn layer(snag: Snag, issue: String) -> Snag {
   Snag(issue: issue, cause: [snag.issue, ..snag.cause])
@@ -71,13 +71,13 @@ pub fn layer(snag: Snag, issue: String) -> Snag {
 
 /// Add additional contextual information to a `Snag` wrapped in a `Result`.
 ///
-/// # Example
+/// ### Example
 ///
 /// ```gleam
-/// > error("Not enough credit")
-/// > |> context("Unable to make purchase")
-/// > |> result.map_error(line_print)
-/// Error("error: Unable to make purchase <- Not enough credit")
+/// error("Not enough credit")
+/// |> context("Unable to make purchase")
+/// |> result.map_error(line_print)
+/// // -> Error("error: Unable to make purchase <- Not enough credit")
 /// ```
 pub fn context(result: Result(success), issue: String) -> Result(success) {
   case result {
@@ -90,14 +90,14 @@ pub fn context(result: Result(success), issue: String) -> Result(success) {
 /// The describing function should produce a human friendly string
 /// reprensentation of the error.
 /// 
-/// # Example
+/// ### Example
 ///
 /// ```gleam
-/// > my_app.read_file("api_key.txt")
-/// > |> snag.map_error(my_app.describe_error)
-/// > |> snag.context("Could not load API key")
-/// > |> snag.line_print
-/// "error: Could not load API key <- File is locked"
+/// my_app.read_file("api_key.txt")
+/// |> snag.map_error(my_app.describe_error)
+/// |> snag.context("Could not load API key")
+/// |> snag.line_print
+/// // -> "error: Could not load API key <- File is locked"
 /// ```
 pub fn map_error(
   result: gleam.Result(a, b),
@@ -111,19 +111,19 @@ pub fn map_error(
 
 /// Turn a snag into a multi-line string, optimised for readability.
 ///
-/// # Example
+/// ### Example
 ///
 /// ```gleam
-/// > new("Not enough credit")
-/// > |> layer("Unable to make purchase")
-/// > |> layer("Character creation failed")
-/// > |> pretty_print
-/// "error: Character creation failed
-///
-/// cause:
-///   0: Unable to make purchase
-///   1: Not enough credit
-/// "
+/// new("Not enough credit")
+/// |> layer("Unable to make purchase")
+/// |> layer("Character creation failed")
+/// |> pretty_print
+/// // -> "error: Character creation failed
+/// //
+/// // cause:
+/// //   0: Unable to make purchase
+/// //   1: Not enough credit
+/// // "
 /// ```
 pub fn pretty_print(snag: Snag) -> String {
   let output = "error: " <> snag.issue <> "\n"
@@ -145,14 +145,14 @@ fn pretty_print_cause(cause) {
 /// Turn a snag into a single-line string, optimised for compactness. This may be
 /// useful for logging snags.
 ///
-/// # Example
+/// ### Example
 ///
 /// ```gleam
-/// > new("Not enough credit")
-/// > |> layer("Unable to make purchase")
-/// > |> layer("Character creation failed")
-/// > |> line_print
-/// "error: Character creation failed <- Unable to make purchase <- Not enough credit"
+/// new("Not enough credit")
+/// |> layer("Unable to make purchase")
+/// |> layer("Character creation failed")
+/// |> line_print
+/// // -> "error: Character creation failed <- Unable to make purchase <- Not enough credit"
 /// ```
 pub fn line_print(snag: Snag) -> String {
   [string.append("error: ", snag.issue), ..snag.cause]
