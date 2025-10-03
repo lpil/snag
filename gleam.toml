@@ -1,5 +1,5 @@
 name = "snag"
-version = "1.1.0"
+version = "1.2.0"
 licences = ["Apache-2.0"]
 description = "A boilerplate-free ad-hoc error type"
 
