@@ -58,3 +58,15 @@ pub fn map_error_ok_test() {
   |> snag.context("Could not open file")
   |> should.equal(Ok(0))
 }
+
+pub fn replace_error_error_test() {
+  Error(Nil)
+  |> snag.replace_error("Could not open file")
+  |> should.equal(Error(Snag("Could not open file", [])))
+}
+
+pub fn replace_error_ok_test() {
+  Ok(0)
+  |> snag.replace_error("Could not open file")
+  |> should.equal(Ok(0))
+}

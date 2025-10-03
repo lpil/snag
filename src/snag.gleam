@@ -86,10 +86,12 @@ pub fn context(result: Result(success), issue: String) -> Result(success) {
   }
 }
 
-/// Maps the error type in a `Result` to a `Snag` given a describing function.
-/// The describing function should produce a human friendly string
+/// Map the error type in a `Result` to a `Snag` with the given describing
+/// function.
+///
+/// The describing function should produce a human friendly text
 /// reprensentation of the error.
-/// 
+///
 /// ### Example
 ///
 /// ```gleam
@@ -106,6 +108,32 @@ pub fn map_error(
   case result {
     Ok(a) -> Ok(a)
     Error(b) -> describer(b) |> error
+  }
+}
+
+/// Replace the error type in a `Result` with a `Snag` with the given
+/// issue text.
+///
+/// This is especially useful for converting functions that return a `Nil`
+/// error into a `Snag`. Always prefer using the `map_error` function for
+/// non `Nil` errors when possible.
+///
+/// ### Example
+///
+/// ```gleam
+/// dict.get(users, "user_id")
+/// |> snag.replace_error("User not found in dict")
+/// |> snag.context("Could not get user data")
+/// |> snag.line_print
+/// // -> "error: Could not get user data <- User not found in dict"
+/// ```
+pub fn replace_error(
+  result: gleam.Result(a, b),
+  with issue: String,
+) -> Result(a) {
+  case result {
+    Ok(a) -> Ok(a)
+    Error(_) -> error(issue)
   }
 }
 
