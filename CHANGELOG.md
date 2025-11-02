@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.2.0 - 2025-11-02
+
+- Added the `replace_error` function.
+
 ## v1.1.0 - 2024-12-19
 
 - Added the `map_error` function.
